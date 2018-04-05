@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>rider</title>
+  </head>
+  <body>
+    <div>
+      <p>Arbiter</p>
+      <div class="arbiter">
+        <button class="cancel" disabled>Ride Cancel</button>
+        <button class="payment" disabled>Make Payment</button>
+      </div>
+      <p>Rider</p>
+      <div class="rider">
+        <button class="book">Book Ride</button>
+        <button class="cancel" disabled>Ride Cancel</button>
+        <button class="payment" disabled>Make Payment</button>
+        <button id="button">Update</button>
+      </div>
+      <p>Driver</p>
+      <div class="driver">
+        <button class ="confirm"  disabled>Diver Confirm</button>
+        <button class="start" disabled>Ride Start</button>
+        <button class="end" disabled>Ride End</button>
+        <button class="cancel" disabled>Ride Cancel</button>
+      </div>
+    </div>
+  </body>
+  <script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+  <script>
+    if(typeof web3 !== 'undefined'){
+      web3 = new Web3(web3.currentProvider);
+    }else{
+      web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+    }
+    
+    web3.eth.defaultAccount = web3.eth.accounts[0];
+    var scontract = web3.eth.contract([
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "riderState",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "rider",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "driver",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "arbiter",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "_rider",
+          "type": "address"
+        },
+        {
+          "name": "_driver",
+          "type": "address"
+        },
+        {
+          "name": "_arbiter",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "cost",
+          "type": "uint256"
+        }
+      ],
+      "name": "bookRide",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "confirmDriver",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "confirmRide",
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "cancelRide",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "rideStarted",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "rideEnded",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "confirmPayment",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]);
+
+  var contractaddr = scontract.at('0x77298e2f3f9342c2d64057daa98fc0f752992afe');//('0x77298e2f3f9342c2d64057daa98fc0f752992afe');
+  console.log("entering...");
+  console.log(contractaddr);
+  </script>
+  
+</html>
